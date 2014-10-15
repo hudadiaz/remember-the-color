@@ -8,12 +8,12 @@ function rtc(){
   this.game_length = null;
   this.game_timer = null;
   this.prev_background = null;
-  this.rtcHTML = "<div class='main_block'></div><div class='answer'><div class='left_block'></div><div class='center_block'><div class='wrapper'><div class='pie spinner'></div><div class='pie filler'></div><div class='mask'></div></div></div><div class='right_block'></div></div>";
+  this.rtcHTML = "<div class='main_block'></div><div class='answer'><div class='left_block'></div><div class='right_block'></div></div>";
   this.rtc = null;
   this.main_block = null;
   this.left_block = null;
   this.right_block = null;
-  this.center_block = null;
+  // this.center_block = null;
 
   this.init = function() {
     if(!self.is_ready) return false;
@@ -35,7 +35,7 @@ function rtc(){
     self.main_block = self.rtc.find(".main_block");
     self.left_block = self.rtc.find(".left_block");
     self.right_block = self.rtc.find(".right_block");
-    self.center_block = self.rtc.find(".center_block");
+    // self.center_block = self.rtc.find(".center_block");
     self.left_block.click(function(){return false;});
     self.right_block.click(function(){return false;});
     self.left_block.hover(function() {self.left_block.css("cursor", "default")});
@@ -46,7 +46,7 @@ function rtc(){
 
   this.startGame = function() {
     self.points = 0;
-    self.center_block.innerHTML = null;
+    // self.center_block.innerHTML = null;
     var background = self.genColor("rgb(0, 0, 0)");
     self.main_block.css("background", background);
     self.left_block.css("background", background);
