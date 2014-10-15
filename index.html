@@ -32,6 +32,7 @@
       var swipe = new Hammer.Swipe();
       mc.add(swipe);
       mc.on("swipe", function(ev) {
+        ev.preventDefault();
         if(RTC.is_ready){
           if(ev["direction"] == 4) RTC.guessRight();
           if(ev["direction"] == 2) RTC.guessLeft();
