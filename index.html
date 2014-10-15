@@ -22,10 +22,28 @@
   <!-- your app's js -->
   <script src='js/jquery-2.1.1.min.js' type='text/javascript'></script>
   <script src='js/rtc.js' type='text/javascript'></script>
+  <script src='js/hammer.min.js' type='text/javascript'></script>
   <script src="js/app.js"></script>
+  <script>
+    $(document).ready(function(){
+      var theRTC = document.body;
+      console.log(theRTC)
+      var mc = new Hammer.Manager(theRTC);
+      var swipe = new Hammer.Swipe();
+      mc.add(swipe);
+      mc.on("swipe", function(ev) {
+        if(RTC.is_ready){
+          if(ev["direction"] == 4) RTC.guessRight();
+          if(ev["direction"] == 2) RTC.guessLeft();
+          if(ev["direction"] == 16) RTC.init();
+          if(ev["direction"] == 8) RTC.endGame();
+        }
+      });
+    })
+  </script>
 </head>
 <body ng-app="starter">
-  <div class='rtc'></div>
+  <div class='rtc' id="theRTC"></div>
   <!-- <div class='pause-blocker'></div> -->
   <!-- <ion-pane>
     <ion-content>
