@@ -1,0 +1,55 @@
+html, body {
+  background: #fff;
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  width: 100%;
+}
+.rtc {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 10px;
+}
+.main_block {
+  height: 85%;
+  display: block;
+  border-radius: 10px;
+  transition: background .3s;
+}
+.answer {
+  height: 15%;
+  color: white;
+  position: relative;
+}
+.left_block, .right_block, .center_block {
+  margin: -1px;
+  border-radius: 10px;
+  transition: background .3s;
+  position: absolute;
+  top: 10px;
+  bottom: 0px;
+}
+.left_block:hover, .right_block:hover {
+  cursor: pointer;
+}
+.left_block {
+  left: 0;
+  right: 60%;
+  margin-right: 5px; 
+}
+.center_block {
+  left:40%;
+  right:40%;
+  height: 100%;
+  /*font-size: 32pt !important;
+  color: black !important;
+  text-align: center;*/
+}
+.right_block {
+  right: 0;
+  left: 60%;
+  margin-left: 5px; 
+}
