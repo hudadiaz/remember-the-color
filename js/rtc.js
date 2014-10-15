@@ -7,12 +7,17 @@ function rtc(){
   this.start_timer = null;
   this.game_length = null;
   this.game_timer = null;
+  this.countdown_counter = null;
   this.prev_background = null;
   this.rtcHTML = "<div class='main_block'></div><div class='answer'><div class='left_block'></div><div class='right_block'></div></div>";
   this.rtc = null;
   this.main_block = null;
   this.left_block = null;
   this.right_block = null;
+  this.pause_blocker = null;
+  this.bar_timer_mark = "<div id='bar4' style='height: 10px;'><span id='bar-timer' display='block' style='width: 100%;'></span></div>";
+  this.bar_timer = null;
+  this.bar_timer_length = null;
   // this.center_block = null;
 
   this.init = function() {
@@ -20,12 +25,16 @@ function rtc(){
     self.is_ready = false;
     clearTimeout(self.game_timer);
     clearTimeout(self.start_timer);
+    clearTimeout(self.countdown_counter);
     self.points = null;
-    self.start_length = null;
+    self.start_length = 2000;
     self.start_timer = null;
-    self.game_length = null;
+    self.game_length = 60000;
     self.game_timer = null;
+    self.countdown_counter = null;
     self.prev_background = null;
+    self.bar_timer = null;
+    self.bar_timer_length = null;
 
     $(document).off();
 
@@ -51,6 +60,8 @@ function rtc(){
     self.main_block.css("background", background);
     self.left_block.css("background", background);
     self.right_block.css("background", background);
+    self.main_block.html(self.bar_timer_mark);
+    self.bar_timer = self.main_block.find("#bar-timer");
     
     self.start_timer = setTimeout(function() {
       $(document).keydown(function(e) {
@@ -59,22 +70,16 @@ function rtc(){
         if(e.which == 38) RTC.init();
         if(e.which == 40) RTC.endGame();
       });
+      self.is_ready = true;
       self.left_block.click(function(){self.guessLeft()});
       self.right_block.click(function(){self.guessRight()});
       self.left_block.hover(function() {self.left_block.css("cursor", "pointer")});
       self.right_block.hover(function() {self.right_block.css("cursor", "pointer")});
-      self.is_ready = true;
-      self.game_timer = setTimeout(function() {self.endGame()}, 60000);
+      self.game_timer = setTimeout(function() {self.endGame()}, self.game_length);
+      self.bar_timer.animate({width: "0"}, self.game_length, 'linear')
       self.nextRound();
-    }, 3000);
+    }, self.start_length);
   }
-
-  // this.updateTimer = function(){
-  //   clearTimeout(updater);
-  //   updater = setTimeout(function() {updateTimer()}, 1000);
-  //   document.getElementById('center').innerHTML = time_limit
-  //   time_limit--;
-  // }
 
   this.nextRound = function(){
     if(!self.is_ready) return false;
@@ -121,6 +126,7 @@ function rtc(){
     if(!self.is_ready) return false;
     clearTimeout(self.game_timer);
     clearTimeout(self.start_timer);
+    self.bar_timer.stop();
     var currentScore = window.localStorage['rtc.highscore'] === 'undefined' ? 0 : window.localStorage['rtc.highscore'];
     if(currentScore < self.points){
       window.localStorage['rtc.highscore'] = self.points;
