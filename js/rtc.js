@@ -216,13 +216,7 @@ $(document).ready(function(){
         }
     }
     else {
-      switch(e.which){
-        case 39:
-        case 37:
-        case 38:
-        case 40:
-        case 32: RTC.is_ready = true; RTC.init();
-      }
+      RTC.is_ready = true; RTC.init();
     }
   });
 });

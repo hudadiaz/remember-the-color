@@ -42,12 +42,7 @@
           }
         }
         else {
-          switch(ev["direction"]){
-            case 4:
-            case 2:
-            case 16:
-            case 8: RTC.is_ready = true; RTC.init();
-          }
+          RTC.is_ready = true; RTC.init();
         }
       });
     })
