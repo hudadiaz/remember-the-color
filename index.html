@@ -29,6 +29,7 @@
       var theRTC = document.body;
       var mc = new Hammer.Manager(theRTC);
       var swipe = new Hammer.Swipe();
+
       mc.add(swipe);
       mc.on("swipe", function(ev) {
         ev.preventDefault();
@@ -39,6 +40,20 @@
             case 2: RTC.guessLeft(); break;
             case 16: RTC.init(); break;
             case 8: RTC.endGame(); break;
+          }
+        }
+        else {
+          RTC.is_ready = true; RTC.init();
+        }
+      });
+
+      mc.add( new Hammer.Tap({ event: 'doubletap', taps: 2 }) );
+      mc.on("singletap doubletap", function(ev) {
+        ev.preventDefault();
+        if(!RTC.is_finished){
+          switch(RTC.is_paused){
+            case true: RTC.resumeGame(); break;
+            case false: RTC.pauseGame();
           }
         }
         else {
