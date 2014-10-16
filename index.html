@@ -32,12 +32,6 @@
       mc.add(swipe);
       mc.on("swipe", function(ev) {
         ev.preventDefault();
-        if(RTC.is_ready){
-          if(ev["direction"] == 4) RTC.guessRight(); break;
-          if(ev["direction"] == 2) RTC.guessLeft(); break;
-          if(ev["direction"] == 16) RTC.init(); break;
-          if(ev["direction"] == 8) RTC.endGame(); break;
-        }
         if(!RTC.is_finished){
           if(RTC.is_ready)
             switch(ev["direction"]){
